@@ -6,6 +6,7 @@ var owfs = new OwfsClient('127.0.0.1', 4304);
 
 class SensorRepository {
     constructor() {
+        var sensors = new Map([]);
         // this.sensors = new Map([
         //     [1, new Sensor(1, 24)],
         //     [2, new Sensor(2, 25)],
@@ -19,12 +20,15 @@ class SensorRepository {
     }
 
     getAll() {
+        this.sensors = new Map([]);
         try{
-            return Array.from(owfs.dirallslash("/", function(err, directories){ 
-                                    directories.forEach(function(element) {
-                                    console.log('Element: ' + element);
-                                    })
-            }))
+            owfs.dirallslash("/", function(err, directories){ 
+                directories.forEach(function(element) {
+                console.log('Element: ' + element + ', ID: ' + element.id);
+                this.sensors.set(element.id, new Sensor(element.id, "500"))
+                })
+            })
+            return Array.from(this.sensors.values());
         }
         catch(err) {
             console.log("owfs error", err);
