@@ -9,6 +9,7 @@ const app = new express();
 app.use(bodyParser.json());
 
 require('./routes/sensorRoutes')(app);
+require('./routes/relayRoutes')(app);
 require('./routes/versionRoutes')(app, config);
 
 app.listen(3000, () => {

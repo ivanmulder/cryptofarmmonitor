@@ -1,7 +1,7 @@
 {
-  "name": "sample-nodejs-rest-stub",
+  "name": "cryptofarmmonitor",
   "version": "1.0.0",
-  "description": "Sample Node.js REST API",
+  "description": "Crypto farm monitor API",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -27,6 +27,7 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "onoff": "^3.0.2",
     "owfs": "^0.3.2"
   },
   "devDependencies": {

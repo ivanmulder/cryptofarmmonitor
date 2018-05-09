@@ -22,6 +22,18 @@ class SensorRepository {
     getAll() {
         this.sensors = new Map([]);
         try{
+            found=0;
+            keylist="";
+            try{
+                    owfs.dir('/', function(directories){
+                            directories.forEach(refreshDevice);
+                    });
+            }
+            catch(err) {
+                    console.log("owfs error", err);
+    }
+
+
             owfs.dirallslash("/", function(err, directories){ 
                 directories.forEach(function(element) {
                 console.log('Element: ' + element + ', ID: ' + element.id);
@@ -36,6 +48,18 @@ class SensorRepository {
         return Array.from(this.sensors.values());
         //return Array.from(this.sensors.values());
     }
+
+    refreshDevice(path) {
+        owfs.read(path + "/temperature", function(result){
+                if(typeof(cache[path])==='undefined'){
+                        cache[path]={};
+                }
+                cache[path].temperature=parseFloat(result);
+                cache[path].update = new Date();
+//              keylist += path + "=" + result + "\n ";
+                found++;
+        });
+}
 
     // remove() {
     //     const keys = Array.from(this.sensors.keys());
