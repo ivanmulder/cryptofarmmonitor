@@ -1,5 +1,7 @@
 'use strict';
 
+var Gpio = require('onoff').Gpio;
+
 class RelayRepository {
     constructor() {
     }
@@ -7,7 +9,6 @@ class RelayRepository {
     getStatusById(id) {
         //return "TEST ID: " + id;
         try {
-            var Gpio = require('onoff').Gpio;
             var relay = new Gpio(id, 'out');
             relay.read(function (err, value) { // Asynchronous read
                 if (err) {
@@ -23,7 +24,6 @@ class RelayRepository {
 
     setStatus(id, status) {
         //return "TEST ID: " + id;
-        var Gpio = require('onoff').Gpio;
         var relay = new Gpio(id, 'out');
         relay.write(status, function (err) { // Asynchronous write
             if (err) {
